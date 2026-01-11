@@ -11,9 +11,16 @@ export const auth = betterAuth({
 
     schema: schema,
   }),
-  trustedOrigins: [env.CORS_ORIGIN, "mybettertapp://", "exp://"],
+  trustedOrigins: [env.CORS_ORIGIN, "ish://", "exp://"],
   emailAndPassword: {
-    enabled: true,
+    enabled: false,
+  },
+  socialProviders: {
+    google: {
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      prompt: 'select_account',
+    },
   },
   advanced: {
     defaultCookieAttributes: {

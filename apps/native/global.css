@@ -3,3 +3,55 @@
 @import "heroui-native/styles";
 
 @source './node_modules/heroui-native/lib';
+
+@layer theme {
+  :root {
+    @variant dark {
+      /* Backgrounds */
+      --color-background-primary: #171717;
+      --color-background-secondary: #171717;
+      --color-card: #292929;
+
+      /* Text colors */
+      --color-foreground: #FAFAFA;
+      --color-foreground-secondary: #9ca3af;
+      --color-muted: #6b7280;
+      --color-muted-foreground: #B4B4B4;
+
+      /* Borders */
+      --color-border: #374151;
+      --color-border-subtle: #1f2937;
+
+      /* Interactive elements */
+      --color-primary: #F97316;
+      --color-primary-hover: #2563eb;
+      --color-danger: #ef4444;
+      --color-success: #10b981;
+      --color-warning: #f59e0b;
+    }
+
+    @variant light {
+      /* Backgrounds */
+      --color-background-primary: #F8F8F8;
+      --color-background-secondary: #f9fafb;
+      --color-card: #EDEDED;
+
+      /* Text colors */
+      --color-foreground: #111827;
+      --color-foreground-secondary: #6C6C6C;
+      --color-muted: #9ca3af;
+      --color-muted-foreground: #6C6C6C;
+
+      /* Borders */
+      --color-border: #e5e7eb;
+      --color-border-subtle: #f3f4f6;
+
+      /* Interactive elements */
+      --color-primary: #F97316;
+      --color-primary-hover: #2563eb;
+      --color-danger: #ef4444;
+      --color-success: #10b981;
+      --color-warning: #f59e0b;
+    }
+  }
+}

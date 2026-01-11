@@ -8,10 +8,25 @@
     },
     "name": "ish",
     "slug": "ish",
-    "plugins": ["expo-font"],
+    "plugins": [
+      "expo-font",
+      "expo-web-browser",
+      "@react-native-community/datetimepicker"
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "ios": {
+      "bundleIdentifier": "com.om-shah.ish"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2050f6bd-45e4-488e-9968-fc6084bc7225"
+      }
+    },
+    "android": {
+      "package": "com.omshah.ish"
     }
   }
 }

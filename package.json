@@ -32,6 +32,7 @@
   "dependencies": {
     "@ish/env": "workspace:*",
     "dotenv": "catalog:",
+    "expo-dev-client": "~6.0.20",
     "zod": "catalog:"
   },
   "devDependencies": {
