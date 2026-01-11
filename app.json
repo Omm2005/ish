@@ -5,6 +5,12 @@
         "projectId": "2050f6bd-45e4-488e-9968-fc6084bc7225"
       }
     },
-    "owner": "om_shah"
+    "owner": "om_shah",
+    "ios": {
+      "bundleIdentifier": "ish",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    }
   }
 }

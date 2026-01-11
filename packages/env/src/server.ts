@@ -13,7 +13,8 @@ export const env = createEnv({
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   },
+  clientPrefix: "PUBLIC_",
+  client: {},
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
-  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
 });
