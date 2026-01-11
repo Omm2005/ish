@@ -5,5 +5,12 @@ export default defineConfig({
   format: "esm",
   outDir: "./dist",
   clean: true,
-  noExternal: [/@ish\/.*/],
+  external: [],
+  noExternal: [
+    "@ish/auth",
+    "@ish/db",
+    "@ish/env",
+    // Add other @ish/* packages here
+  ],
+  bundle: true,
 });
