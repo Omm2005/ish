@@ -38,10 +38,6 @@ export default function AuthScreen() {
 
   return (
     <View className="flex-1 bg-background-primary justify-end p-8 pb-10 relative">
-      <View className="absolute top-16 left-8 flex-row">
-        <Text className="text-foreground text-2xl font-bold">i$h</Text>
-        <Text className="text-primary text-2xl font-bold">.</Text>
-      </View>
       
       <View className="mb-10">
         <View className="flex-col">

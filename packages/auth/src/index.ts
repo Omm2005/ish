@@ -11,7 +11,7 @@ export const auth = betterAuth({
 
     schema: schema,
   }),
-  trustedOrigins: [env.CORS_ORIGIN, "ish://", "exp://"],
+  trustedOrigins: [env.BETTER_AUTH_URL, env.CORS_ORIGIN, "ish://", "exp://"],
   emailAndPassword: {
     enabled: false,
   },
@@ -24,8 +24,9 @@ export const auth = betterAuth({
   },
   advanced: {
     defaultCookieAttributes: {
-      sameSite: "none",
-      secure: true,
+      // In dev, secure cookies on http://localhost won't be set, causing state mismatches.
+      sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+      secure: env.NODE_ENV === "production",
       httpOnly: true,
     },
   },

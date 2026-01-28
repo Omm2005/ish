@@ -1,24 +1,26 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { useMemo, useRef } from "react";
 import { Animated, Pressable, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { GlassView, GlassContainer } from "expo-glass-effect";
 import * as Haptics from "expo-haptics";
 import { useCSSVariable } from "uniwind";
+import { useSelectedDate } from "@/contexts/selected-date-context";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function AppScreen() {
   const router = useRouter();
-  const centerScale = useRef(new Animated.Value(1)).current;
   const leftScale = useRef(new Animated.Value(1)).current;
   const rightScale = useRef(new Animated.Value(1)).current;
   const MutedForeground = useCSSVariable("--color-muted-foreground");
-  const { selectedDate } = useLocalSearchParams<{ selectedDate?: string }>();
+  const CardColor = useCSSVariable("--color-card");
+  const BorderColor = useCSSVariable("--color-border");
+  const { selectedDate } = useSelectedDate();
+  const isOpeningCalendar = useRef(false);
 
   const headerDate = useMemo(() => {
-    const parsed = selectedDate ? new Date(selectedDate) : new Date();
-    const date = Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+    const date = Number.isNaN(selectedDate.getTime()) ? new Date() : selectedDate;
     return {
-      dayNumber: date.getDate().toString(),
       monthDay: date.toLocaleDateString(undefined, {
         month: "long",
         day: "numeric",
@@ -47,31 +49,42 @@ export default function AppScreen() {
     }).start();
   };
 
+  useFocusEffect(() => {
+    isOpeningCalendar.current = false;
+  });
+
   return (
     <View className="relative flex-1 bg-background-primary p-6 pt-8">
-      <View className="mt-8 w-full flex-row items-end justify-between">
-        <View className="flex-row items-end">
-          <Text className="text-6xl font-bold text-foreground">
-            {headerDate.dayNumber}
-          </Text>
-          <View className="ml-3 mb-2 h-6 w-6 rounded-full bg-red-500" />
-        </View>
-        <View className="items-end">
-          <Text className="text-2xl font-semibold text-muted-foreground">
-            {headerDate.weekday}
-          </Text>
-          <Text className="text-2xl font-semibold text-muted-foreground">
-            {headerDate.monthDay}
-          </Text>
-        </View>
+      <View className="mt-4 w-full flex-row items-center justify-between">
+        <Pressable
+          onPress={() => {
+            if (isOpeningCalendar.current) return;
+            isOpeningCalendar.current = true;
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            router.push({
+              pathname: "/(app)/calendar",
+            });
+          }}
+        >
+          <View className="justify-center">
+            <Text className="text-xl font-semibold text-foreground">
+              {headerDate.weekday}
+            </Text>
+            <Text className="text-base font-semibold text-muted-foreground">
+              {headerDate.monthDay}
+            </Text>
+          </View>
+        </Pressable>
+
+        <View />
       </View>
-      <View className="absolute bottom-8 left-0 right-0">
-        <View className="flex-row items-center justify-between px-8">
+      <View className="absolute bottom-8 left-0 right-0 px-6">
+        <View className="flex-row items-center justify-between">
           <GlassContainer>
             <Pressable
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                router.push("/(app)/dash");
+                router.push("/(app)/profile");
               }}
               onPressIn={() => handlePressIn(leftScale)}
               onPressOut={() => handlePressOut(leftScale)}
@@ -87,61 +100,22 @@ export default function AppScreen() {
                     justifyContent: "center",
                   }}
                 >
-                  <Ionicons
-                    name="stats-chart"
-                    size={22}
-                    color={MutedForeground as string}
-                  />
+                  <Ionicons name="person" size={22} color={MutedForeground as string} />
                 </GlassView>
               </Animated.View>
             </Pressable>
           </GlassContainer>
 
-          <GlassContainer>
-            <Pressable
-              onPress={() => {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                router.push({
-                  pathname: "/(app)/calendar",
-                  params: selectedDate ? { selectedDate } : undefined,
-                });
-              }}
-              onPressIn={() => handlePressIn(rightScale)}
-              onPressOut={() => handlePressOut(rightScale)}
-            >
-              <Animated.View style={{ transform: [{ scale: rightScale }] }}>
-                <GlassView
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: 28,
-                    overflow: "hidden",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Ionicons
-                    name="calendar"
-                    size={22}
-                    color={MutedForeground as string}
-                  />
-                </GlassView>
-              </Animated.View>
-            </Pressable>
-          </GlassContainer>
-        </View>
-
-        <View className="absolute left-0 right-0 items-center">
           <GlassContainer>
             <Pressable
               onPress={() => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                 router.push("/(app)/dash");
               }}
-              onPressIn={() => handlePressIn(centerScale)}
-              onPressOut={() => handlePressOut(centerScale)}
+              onPressIn={() => handlePressIn(rightScale)}
+              onPressOut={() => handlePressOut(rightScale)}
             >
-              <Animated.View style={{ transform: [{ scale: centerScale }] }}>
+              <Animated.View style={{ transform: [{ scale: rightScale }] }}>
                 <GlassView
                   style={{
                     width: 100,

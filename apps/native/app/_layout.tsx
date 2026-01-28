@@ -6,6 +6,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 
 import { AppThemeProvider } from "@/contexts/app-theme-context";
+import { SelectedDateProvider } from "@/contexts/selected-date-context";
 
 export const unstable_settings = {
   initialRouteName: "(app)",
@@ -56,13 +57,15 @@ export default function Layout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <KeyboardProvider>
         <AppThemeProvider>
-          <HeroUINativeProvider>
+          <SelectedDateProvider>
+            <HeroUINativeProvider>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="(auth)" />
             {/* <Stack.Screen name="(onboarding)" /> */}
             <Stack.Screen name="(app)" />
           </Stack>
-          </HeroUINativeProvider>
+            </HeroUINativeProvider>
+          </SelectedDateProvider>
         </AppThemeProvider>
       </KeyboardProvider>
     </GestureHandlerRootView>

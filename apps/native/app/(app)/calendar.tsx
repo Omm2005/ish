@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
 import * as Haptics from "expo-haptics";
 import { useCSSVariable } from "uniwind";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useSelectedDate } from "@/contexts/selected-date-context";
 
 type CalendarScreenProps = {
   embedded?: boolean;
@@ -52,7 +52,7 @@ export default function CalendarScreen({ embedded = false }: CalendarScreenProps
   const router = useRouter();
   const { selectedDate: selectedDateParam } = useLocalSearchParams<{ selectedDate?: string }>();
   const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(new Date()));
-  const [selectedDate, setSelectedDate] = useState(() => new Date());
+  const { selectedDate, setSelectedDate } = useSelectedDate();
   const today = useMemo(() => new Date(), []);
   const primaryColor = useCSSVariable("--color-primary");
   const foregroundColor = useCSSVariable("--color-foreground");
@@ -83,10 +83,7 @@ export default function CalendarScreen({ embedded = false }: CalendarScreenProps
     const now = new Date();
     setVisibleMonth(startOfMonth(now));
     setSelectedDate(now);
-    router.replace({
-      pathname: "/(app)",
-      params: { selectedDate: now.toISOString() },
-    });
+    router.back();
   };
 
   useEffect(() => {
@@ -171,10 +168,7 @@ export default function CalendarScreen({ embedded = false }: CalendarScreenProps
                       onPress={() => {
                         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                         setSelectedDate(date);
-                        router.replace({
-                          pathname: "/(app)",
-                          params: { selectedDate: date.toISOString() },
-                        });
+                        router.back();
                       }}
                       style={[
                         styles.dayButton,
