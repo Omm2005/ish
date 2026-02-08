@@ -23,11 +23,11 @@ export function ThemeToggle() {
     >
       {isLight ? (
         <Animated.View key="moon" entering={ZoomIn} exiting={FadeOut}>
-          <StyledIonicons name="moon" size={20} className="text-foreground" />
+          <StyledIonicons name="moon" size={20} colorClassName="accent-foreground" />
         </Animated.View>
       ) : (
         <Animated.View key="sun" entering={ZoomIn} exiting={FadeOut}>
-          <StyledIonicons name="sunny" size={20} className="text-foreground" />
+          <StyledIonicons name="sunny" size={20} colorClassName="accent-foreground" />
         </Animated.View>
       )}
     </Pressable>

@@ -1,57 +1,39 @@
 @import "tailwindcss";
 @import "uniwind";
-@import "heroui-native/styles";
-
-@source './node_modules/heroui-native/lib';
 
 @layer theme {
   :root {
+    /* Dark theme variables */
     @variant dark {
-      /* Backgrounds */
-      --color-background-primary: #171717;
-      --color-background-secondary: #171717;
-      --color-card: #292929;
-
-      /* Text colors */
-      --color-foreground: #FAFAFA;
-      --color-foreground-secondary: #9ca3af;
-      --color-muted: #6b7280;
-      --color-muted-foreground: #B4B4B4;
-
-      /* Borders */
-      --color-border: #374151;
-      --color-border-subtle: #1f2937;
-
-      /* Interactive elements */
-      --color-primary: #F97316;
-      --color-primary-hover: #2563eb;
-      --color-danger: #ef4444;
-      --color-success: #10b981;
-      --color-warning: #f59e0b;
+      --color-background: #121212;
+      /* Supabase-inspired semantic roles */
+      --color-foreground: #F8FAFC;
+      --color-muted-foreground: #898989;
+      --color-primary: #FE904E;
+      --color-accent: #FE904E;
+      --color-accent-foreground: #0B0F14;
+      --color-card: #2E2E2E;
+      --color-border: #1F2937;
+      --color-destructive: #F87171;
     }
 
+    /* Light theme variables */
     @variant light {
-      /* Backgrounds */
-      --color-background-primary: #F8F8F8;
-      --color-background-secondary: #f9fafb;
-      --color-card: #EDEDED;
-
-      /* Text colors */
-      --color-foreground: #111827;
-      --color-foreground-secondary: #6C6C6C;
-      --color-muted: #9ca3af;
-      --color-muted-foreground: #6C6C6C;
-
-      /* Borders */
-      --color-border: #e5e7eb;
-      --color-border-subtle: #f3f4f6;
-
-      /* Interactive elements */
-      --color-primary: #F97316;
-      --color-primary-hover: #2563eb;
-      --color-danger: #ef4444;
-      --color-success: #10b981;
-      --color-warning: #f59e0b;
+      --color-background: #FFFFFF;
+      /* Supabase-inspired semantic roles */
+      --color-foreground: #0F172A;
+      --color-muted-foreground: #64748B;
+      --color-primary: #FE904E;
+      --color-accent: #FE904E;
+      --color-accent-foreground: #FFFFFF;
+      --color-card: #F8F9FB;
+      --color-border: #E2E8F0;
+      --color-destructive: #DC2626;
     }
-  }
+    /* Font families */
+    --font-sans: 'SpaceGrotesk-Regular';
+    --font-sans-medium: 'SpaceGrotesk-Medium';
+    --font-sans-semibold: 'SpaceGrotesk-SemiBold';
+    --font-sans-bold: 'SpaceGrotesk-Bold';
+}
 }

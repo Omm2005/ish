@@ -19,6 +19,7 @@
     "@expo/vector-icons": "^15.0.3",
     "@ish/env": "workspace:*",
     "@react-native-community/datetimepicker": "^8.6.0",
+    "@react-native-async-storage/async-storage": "^1.24.0",
     "@react-navigation/drawer": "^7.3.9",
     "@react-navigation/elements": "^2.8.1",
     "@stardazed/streams-text-encoding": "^1.0.2",

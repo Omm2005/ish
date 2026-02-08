@@ -15,6 +15,7 @@ export const unstable_settings = {
 import { authClient } from "@/lib/auth-client";
 import { View, ActivityIndicator } from "react-native";
 import { useEffect, useState } from "react";
+import * as SplashScreen from "expo-splash-screen";
 
 export default function Layout() {
     const { data: session, isPending } = authClient.useSession();
@@ -24,6 +25,10 @@ export default function Layout() {
     
     // Track if we've handled the initial navigation
     const [isNavigationReady, setIsNavigationReady] = useState(false);
+
+    useEffect(() => {
+      SplashScreen.preventAutoHideAsync();
+    }, []);
 
     useEffect(() => {
     if (isPending) return;
@@ -44,13 +49,15 @@ export default function Layout() {
     setIsNavigationReady(true);
   }, [session, isPending, segments]);
   
-  // Show loading indicator while checking session
+  useEffect(() => {
+    if (!isPending && isNavigationReady) {
+      SplashScreen.hideAsync();
+    }
+  }, [isPending, isNavigationReady]);
+
+  // Keep native splash screen visible while checking session
   if (isPending || !isNavigationReady) {
-      return (
-          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#000000'}}>
-              <ActivityIndicator size="large" color="#ffffff" />
-          </View>
-      );
+      return null;
   }
 
   return (
@@ -59,7 +66,11 @@ export default function Layout() {
         <AppThemeProvider>
           <SelectedDateProvider>
             <HeroUINativeProvider>
-          <Stack screenOptions={{ headerShown: false }}>
+          <Stack 
+          screenOptions={{ headerShown: false,
+            contentStyle: { backgroundColor: 'transparent' }
+           }}
+          >
             <Stack.Screen name="(auth)" />
             {/* <Stack.Screen name="(onboarding)" /> */}
             <Stack.Screen name="(app)" />

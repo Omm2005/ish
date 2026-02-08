@@ -29,9 +29,11 @@ bun install
 This project uses PostgreSQL with Drizzle ORM.
 
 1. Make sure you have a PostgreSQL database set up.
-2. Update your `apps/server/.env` file with your PostgreSQL connection details.
+2. Copy the example env files and fill them in.
+3. Update your `apps/server/.env` file with your PostgreSQL connection details.
+4. Update your `apps/native/.env` file with the server URL if needed.
 
-3. Apply the schema to your database:
+5. Apply the schema to your database:
 
 ```bash
 bun run db:push
