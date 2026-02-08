@@ -1,0 +1,48 @@
+{
+  "name": "ish",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "dotenv": "^17.2.2",
+      "zod": "^4.1.13",
+      "typescript": "^5",
+      "@cloudflare/workers-types": "^4.20251213.0",
+      "better-auth": "^1.4.18",
+      "ai": "^6.0.3",
+      "alchemy": "^0.82.1",
+      "@better-auth/expo": "^1.4.18"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:native": "turbo -F native dev",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @ish/db db:push",
+    "db:studio": "turbo -F @ish/db db:studio",
+    "db:generate": "turbo -F @ish/db db:generate",
+    "db:migrate": "turbo -F @ish/db db:migrate",
+    "deploy": "turbo -F @ish/infra deploy",
+    "destroy": "turbo -F @ish/infra destroy"
+  },
+  "dependencies": {
+    "@ish/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "catalog:",
+    "@ish/config": "workspace:*",
+    "@types/node": "^22.13.14",
+    "turbo": "^2.6.3",
+    "typescript": "catalog:"
+  },
+  "packageManager": "bun@1.2.17"
+}
