@@ -10,6 +10,11 @@ import { logger } from "hono/logger";
 const app = new Hono();
 
 app.use(logger());
+app.onError((err, c) => {
+  // Log full error details for debugging 500s
+  console.error("[server] Unhandled error:", err);
+  return c.text("Internal Server Error", 500);
+});
 app.use(
   "/*",
   cors({
@@ -20,7 +25,14 @@ app.use(
   }),
 );
 
-app.on(["POST", "GET"], "/api/auth/*", (c) => auth.handler(c.req.raw));
+app.on(["POST", "GET"], "/api/auth/*", (c) => {
+  // Better Auth mutates request headers; clone with mutable headers for Workers/immutable envs.
+  const raw = c.req.raw;
+  const req = new Request(raw, {
+    headers: new Headers(raw.headers),
+  });
+  return auth.handler(req);
+});
 
 app.post("/ai", async (c) => {
   const body = await c.req.json();
